@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from app.models.job import Job
-from app.extensions import db
+from app.database import db
 from app.schemas.job import JobSchema
 from marshmallow import ValidationError
 

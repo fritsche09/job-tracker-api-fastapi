@@ -1,15 +1,16 @@
-from app.extensions import db
+from app.database import Base
 from datetime import date
+from sqlalchemy import Column, Integer, String, Text, Date
 
-class Job(db.Model):
+class Job(Base):
     __tablename__ = "jobs"
 
-    id = db.Column(db.Integer, primary_key=True)
-    company = db.Column(db.String(100), nullable=False)
-    role = db.Column(db.String(100), nullable=False)
-    status = db.Column(db.String(50), default="applied")
-    applied_date = db.Column(db.Date, default=date.today)
-    notes = db.Column(db.Text, nullable=True)
+    id = Column(Integer, primary_key=True)
+    company = Column(String(100), nullable=False)
+    role = Column(String(100), nullable=False)
+    status = Column(String(50), default="applied")
+    applied_date = Column(Date, default=date.today)
+    notes = Column(Text, nullable=True)
 
     def __repr__(self):
         return f"<Job {self.company} - {self.role}>"

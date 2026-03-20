@@ -1,5 +1,5 @@
 from flask import Flask
-from app.extensions import db
+from app.database import db
 from app.models.job import Job 
 from app.routes.jobs import jobs_bp
 from config import Config
