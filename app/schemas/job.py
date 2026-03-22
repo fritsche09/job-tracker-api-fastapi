@@ -1,9 +1,17 @@
-from marshmallow import Schema, fields, validate
+from pydantic import BaseModel, Field
+from typing import Optional
+from datetime import date
 
-class JobSchema(Schema):
-    id = fields.Int(dump_only=True)
-    company = fields.Str(required=True, validate=validate.Length(min=1, max=100))
-    role = fields.Str(required=True, validate=validate.Length(min=1, max=100))
-    status = fields.Str(load_default="applied")
-    applied_date = fields.Date(load_default=None)
-    notes = fields.Str(load_default=None)
+
+class JobBase(BaseModel):
+    company: str = Field(..., min_length=1, max_length=100)
+    role: str = Field(..., min_length=1, max_length=100)
+    status: Optional[str] = "applied"
+    applied_date: Optional[date] = None
+    notes: Optional[str] = None
+
+class JobResponse(JobBase):
+    id: int
+
+    class Config:
+        from_attributes = True
